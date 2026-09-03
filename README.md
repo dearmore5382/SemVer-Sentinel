@@ -6,6 +6,13 @@ seal the old API, new API, SemVer pair and compatibility policy directly in the
 contract. Validators independently classify compatibility observations; the
 contract deterministically derives the final compliance result.
 
+## Project links
+
+- Live DApp: https://semver-sentinel.pages.dev
+- GitHub: https://github.com/dearmore5382/SemVer-Sentinel
+- Studionet contract:
+  `0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594`
+
 ## Current status
 
 **Deployed and live-verified on Studionet.** Deployed byte-for-byte source parity
