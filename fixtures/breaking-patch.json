@@ -1,0 +1,8 @@
+{
+  "package": "signal-kit",
+  "old_version": "1.4.2",
+  "new_version": "1.4.3",
+  "policy": "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+  "old_api": "POST /signals body { name: string } -> 201 { id: string, state: string }",
+  "new_api": "POST /signals body { name: string, region: string required } -> 201 { id: string }"
+}

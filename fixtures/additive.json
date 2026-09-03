@@ -1,0 +1,8 @@
+{
+  "package": "signal-kit",
+  "old_version": "1.4.2",
+  "new_version": "1.5.0",
+  "policy": "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+  "old_api": "GET /signals/{id} -> 200 { id: string, state: string }",
+  "new_api": "GET /signals/{id} -> 200 { id: string, state: string }\nGET /signals/{id}/history -> 200 [{ state: string }]"
+}

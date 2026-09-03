@@ -1,0 +1,25 @@
+{
+  "contract": "0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594",
+  "chain_id": 61999,
+  "source_sha256": "573c0feeda059b10071ba8863f92d5fa51723f10f50c112bd877924217c2e4db",
+  "release_id": 3,
+  "method": "assess_release",
+  "args": [
+    3
+  ],
+  "original_tx": "0x1b870ce9b251ccff199789c006b23fe2161439c7f5f4ea9da416b38a59d47db5",
+  "attempt_limit": 1,
+  "submitted_attempts": 1,
+  "status": "FINALIZED",
+  "started_at": "2026-09-03T13:23:40.002658+00:00",
+  "hash": "0xa21963982af865702a9a2ec4dc170813a99855d9b9e7a50284f0de37362b9b11",
+  "consensus": "MAJORITY_AGREE",
+  "return_value": "VERSION_VIOLATION",
+  "readback": {
+    "status": "REVIEWED",
+    "category": "BREAKING",
+    "compliance": "VERSION_VIOLATION",
+    "reason": "BREAKING_CHANGE_DETECTED"
+  },
+  "finished_at": "2026-09-03T13:24:41.286449+00:00"
+}

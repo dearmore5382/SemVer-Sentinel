@@ -1,0 +1,8 @@
+{
+  "package": "signal-kit",
+  "old_version": "3.1.0",
+  "new_version": "3.1.1",
+  "policy": "Documented response behavior must remain compatible.",
+  "old_api": "GET /signals returns a normal response.",
+  "new_api": "GET /signals returns an improved response under some conditions."
+}

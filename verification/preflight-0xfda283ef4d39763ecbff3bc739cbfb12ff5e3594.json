@@ -1,0 +1,112 @@
+{
+  "network": "Studionet",
+  "chain_id": 61999,
+  "contract": "0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594",
+  "source_sha256": "573c0feeda059b10071ba8863f92d5fa51723f10f50c112bd877924217c2e4db",
+  "exact_source_parity": true,
+  "initial_release_count": 0,
+  "schema": {
+    "ctor": {
+      "params": [],
+      "kwparams": {}
+    },
+    "methods": {
+      "assess_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      },
+      "cancel_draft": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      },
+      "create_release": {
+        "params": [
+          [
+            "package",
+            "string"
+          ],
+          [
+            "old_version",
+            "string"
+          ],
+          [
+            "new_version",
+            "string"
+          ],
+          [
+            "policy",
+            "string"
+          ],
+          [
+            "old_api",
+            "string"
+          ],
+          [
+            "new_api",
+            "string"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "any",
+        "payable": false
+      },
+      "get_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": true,
+        "ret": "string"
+      },
+      "get_release_count": {
+        "params": [],
+        "kwparams": {},
+        "readonly": true,
+        "ret": "int"
+      },
+      "get_snapshots": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": true,
+        "ret": "string"
+      },
+      "seal_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      }
+    }
+  }
+}
