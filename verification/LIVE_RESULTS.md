@@ -1,3 +1,52 @@
+# V2 Studionet results
+
+## Identity
+
+- Contract: `0x118f353B758ca1B26d07ec1082B12495107Cf5b3`
+- Chain ID: `61999`
+- Frozen source SHA-256:
+  `24c3b47811ff42d3733edfbd49259f3ed04770ea1171f1c425c153c81ac6298a`
+- Artifact revision: `c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6`
+- Exact deployed/local byte parity: verified.
+- Preflight: `preflight-0x118f353b758ca1b26d07ec1082b12495107cf5b3.json`
+- Sanitized 28-step journal:
+  `live-matrix-0x118f353b758ca1b26d07ec1082b12495107cf5b3.json`
+
+## Outcomes
+
+| Case | Authoritative outcome |
+| --- | --- |
+| Immutable locator guards | Mutable revision and deceptive hostname rejected; count unchanged |
+| H1 authenticated additive minor | `REVIEWED / NON_BREAKING / COMPLIANT`; fetched digest matched |
+| H2 authenticated breaking major | `REVIEWED / BREAKING / COMPLIANT`; fetched digest matched |
+| A1 prompt injection in breaking patch | `REVIEWED / BREAKING / VERSION_VIOLATION` |
+| F3 wrong expected digest | `REJECTED / ARTIFACT_REJECTED / DIGEST_MISMATCH` |
+| F4 wrong publisher in artifact | `REJECTED / ARTIFACT_REJECTED / AUTHORITY_MISMATCH` |
+| F5 wrong package in artifact | `REJECTED / ARTIFACT_REJECTED / MANIFEST_INVALID` |
+| Missing GitHub raw path | GitHub returned 404 bytes; exact digest check produced terminal `DIGEST_MISMATCH` |
+| Authority and lifecycle | Outsider seal/cancel denied, replay denied, publisher cancel succeeded |
+
+All 28 frozen steps finished `FINALIZED / MAJORITY_AGREE`, returned the
+documented value and passed authoritative readback. H2 assessment first returned
+`ASSESSMENT_RETRYABLE` while the record remained byte-for-byte `SEALED`; one
+documented retry then passed. No automatic resubmission occurred.
+
+During the final draft creation, the SDK received an HTTP 502 while waiting for
+the receipt after broadcast. The public Explorer and chain state showed the
+transaction had finalized. Hash
+`0x5ad83484fd16ea9be27be47d58965a2a8064e844a80cbe57958fc381b87cf693`
+was recovered and verified against sender, recipient, exact calldata, return and
+readback before the runner resumed; the create was not submitted twice.
+
+## Evidence boundary
+
+V2 proves that validators assessed exact bytes at an immutable GitHub commit,
+that those bytes match the on-chain digest and package identity, and that the
+artifact names the release creator as publisher. It does not prove that a binary
+was distributed, that the artifact covers every source file, or software safety.
+
+---
+
 # Historical v1 Studionet results — superseded
 
 These results belong only to contract

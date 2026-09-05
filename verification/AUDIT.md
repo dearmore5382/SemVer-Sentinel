@@ -1,6 +1,7 @@
 # V2 adversarial audit
 
-The remediation is locally verified. Live claims remain open until deployment.
+The remediation is locally and live verified against the exact v2 deployment.
+See `LIVE_RESULTS.md` and the sanitized v2 journal for transaction-level proof.
 
 ## Happy paths
 

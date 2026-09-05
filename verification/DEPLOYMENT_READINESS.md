@@ -1,7 +1,8 @@
-# V2 deployment readiness
+# V2 deployed-source verification
 
-Local remediation gates pass. The user deploys the exact frozen source with no
-constructor arguments after the final source hash is recorded below.
+Local remediation gates and deployed-source parity pass. The exact frozen source
+was deployed with no constructor arguments at
+`0x118f353B758ca1B26d07ec1082B12495107Cf5b3`.
 
 - Frozen v2 source SHA-256:
   `24c3b47811ff42d3733edfbd49259f3ed04770ea1171f1c425c153c81ac6298a`

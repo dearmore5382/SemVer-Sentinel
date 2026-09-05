@@ -1,0 +1,903 @@
+{
+  "contract": "0x118f353B758ca1B26d07ec1082B12495107Cf5b3",
+  "chain_id": 61999,
+  "source_sha256": "24c3b47811ff42d3733edfbd49259f3ed04770ea1171f1c425c153c81ac6298a",
+  "artifact_revision": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+  "started_at": "2026-09-05T04:07:55.620600+00:00",
+  "steps": [
+    {
+      "id": "F1-mutable-url",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.5.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/main/fixtures/artifacts/additive-minor.json",
+        "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8"
+      ],
+      "expected": "IMMUTABLE_GITHUB_ARTIFACT_REQUIRED",
+      "count": 0,
+      "record": null,
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:07:58.568052+00:00",
+      "hash": "0x57dbfe7da3ef592aa55da466609b5015668184a2df85bcdcee48cdf7dfe51131",
+      "readback": {
+        "release_count": 0
+      }
+    },
+    {
+      "id": "F2-deceptive-host",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.5.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com.evil.example/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/artifact.json",
+        "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8"
+      ],
+      "expected": "IMMUTABLE_GITHUB_ARTIFACT_REQUIRED",
+      "count": 0,
+      "record": null,
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:08:45.323565+00:00",
+      "hash": "0x93a4d9d2f5a0d233ef1e6381641fb9b5b39728f81920b57b3b773dfcfe34ede3",
+      "readback": {
+        "release_count": 0
+      }
+    },
+    {
+      "id": "H1-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.5.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/additive-minor.json",
+        "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8"
+      ],
+      "expected": "0",
+      "count": 1,
+      "record": [
+        0,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:09:32.581217+00:00",
+      "hash": "0x6ddbd099aac17599870c42fdf61a4f9e29b259a389914fb06436c406259efbbc",
+      "readback": {
+        "release_count": 1,
+        "release_id": 0,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "G1-outsider-seal",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "seal_release",
+      "args": [
+        0
+      ],
+      "expected": "PUBLISHER_ONLY",
+      "count": 1,
+      "record": [
+        0,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:10:20.879467+00:00",
+      "hash": "0x65181173b6a0cc58545a046dc3c24cffdfb954687c2b35858722f25c5d4869a8",
+      "readback": {
+        "release_count": 1,
+        "release_id": 0,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "H1-seal",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        0
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 1,
+      "record": [
+        0,
+        "SEALED",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:11:08.081864+00:00",
+      "hash": "0xf631f254da2563a94b8dba86b225a9e1fbc93a3e684c8f00537d6a52f51ef4ea",
+      "readback": {
+        "release_count": 1,
+        "release_id": 0,
+        "status": "SEALED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "H1-assess",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        0
+      ],
+      "expected": "COMPLIANT",
+      "count": 1,
+      "record": [
+        0,
+        "REVIEWED",
+        "NON_BREAKING",
+        "COMPLIANT"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:11:57.210214+00:00",
+      "hash": "0x57af2fe3f257402fd3db7ebf35e18b0d382b79551c3774c3b44452e40a7315e9",
+      "readback": {
+        "release_count": 1,
+        "release_id": 0,
+        "status": "REVIEWED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "actual_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "category": "NON_BREAKING",
+        "compliance": "COMPLIANT",
+        "reason": "COMPATIBLE_CHANGE"
+      }
+    },
+    {
+      "id": "G2-replay",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "assess_release",
+      "args": [
+        0
+      ],
+      "expected": "RELEASE_NOT_ASSESSABLE",
+      "count": 1,
+      "record": [
+        0,
+        "REVIEWED",
+        "NON_BREAKING",
+        "COMPLIANT"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:12:54.091394+00:00",
+      "hash": "0x063914fcb713a5f22c944cb329e766d489679d444d2f16b5e23c6ed2932f1cfa",
+      "readback": {
+        "release_count": 1,
+        "release_id": 0,
+        "status": "REVIEWED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "actual_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "category": "NON_BREAKING",
+        "compliance": "COMPLIANT",
+        "reason": "COMPATIBLE_CHANGE"
+      }
+    },
+    {
+      "id": "H2-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "2.0.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/breaking-major.json",
+        "5a80f119d002c5b0f9ae47f4185df6794d821e52ebe87a6719badf9d3a6a6d32"
+      ],
+      "expected": "1",
+      "count": 2,
+      "record": [
+        1,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:13:40.208218+00:00",
+      "hash": "0x08b6d38fce7af55cef0203b8ae149a16869f225afef0a4bdad12267547fae9c0",
+      "readback": {
+        "release_count": 2,
+        "release_id": 1,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "5a80f119d002c5b0f9ae47f4185df6794d821e52ebe87a6719badf9d3a6a6d32",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "H2-seal",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        1
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 2,
+      "record": [
+        1,
+        "SEALED",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:14:27.555369+00:00",
+      "hash": "0x33d3c7d84a33722e13b8ffc7515fdea69d3a41306291eb371eb6ce1c1fdd91a5",
+      "readback": {
+        "release_count": 2,
+        "release_id": 1,
+        "status": "SEALED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "5a80f119d002c5b0f9ae47f4185df6794d821e52ebe87a6719badf9d3a6a6d32",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "H2-assess",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        1
+      ],
+      "expected": "COMPLIANT",
+      "count": 2,
+      "record": [
+        1,
+        "REVIEWED",
+        "BREAKING",
+        "COMPLIANT"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:15:14.091604+00:00",
+      "hash": "0x69f05ee1f6087329ec18e88953c6cc685ea4c67e682e711275877e436a659b8f",
+      "retryable_attempts": [
+        {
+          "hash": "0x1ebe7d1edbcf3187561f7d96a3c449e5da49714089c72c88c173ea3a56eec504",
+          "final_status": "FINALIZED",
+          "consensus": "MAJORITY_AGREE",
+          "return": "ASSESSMENT_RETRYABLE",
+          "readback_status": "SEALED"
+        }
+      ],
+      "retry_submitted_at": "2026-09-05T04:19:35.175699+00:00",
+      "readback": {
+        "release_count": 2,
+        "release_id": 1,
+        "status": "REVIEWED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "5a80f119d002c5b0f9ae47f4185df6794d821e52ebe87a6719badf9d3a6a6d32",
+        "actual_digest": "5a80f119d002c5b0f9ae47f4185df6794d821e52ebe87a6719badf9d3a6a6d32",
+        "category": "BREAKING",
+        "compliance": "COMPLIANT",
+        "reason": "BREAKING_CHANGE_DETECTED"
+      }
+    },
+    {
+      "id": "A1-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.4.3",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/prompt-injection-patch.json",
+        "be9e1e09edf2d22358c78eecec4cc3186f8787374296362f6d6a4f2246dd3b1c"
+      ],
+      "expected": "2",
+      "count": 3,
+      "record": [
+        2,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:20:27.791723+00:00",
+      "hash": "0xbd45d7368dfe0eeb61dc8def6da4ad8a053dac533d1f65d71a1bd80e13a19c3a",
+      "readback": {
+        "release_count": 3,
+        "release_id": 2,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "be9e1e09edf2d22358c78eecec4cc3186f8787374296362f6d6a4f2246dd3b1c",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "A1-seal",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        2
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 3,
+      "record": [
+        2,
+        "SEALED",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:21:18.514512+00:00",
+      "hash": "0xb49bb2a0470a5601d65c10340562f8cc28312e699bcabc074fd75e9e2b3c6c27",
+      "readback": {
+        "release_count": 3,
+        "release_id": 2,
+        "status": "SEALED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "be9e1e09edf2d22358c78eecec4cc3186f8787374296362f6d6a4f2246dd3b1c",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "A1-assess",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        2
+      ],
+      "expected": "VERSION_VIOLATION",
+      "count": 3,
+      "record": [
+        2,
+        "REVIEWED",
+        "BREAKING",
+        "VERSION_VIOLATION"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:22:08.680603+00:00",
+      "hash": "0x1ca0d9fe3454e960fa9ac96cfc094a8e36d1d8b379ba0d844e3d2eca76b39e28",
+      "readback": {
+        "release_count": 3,
+        "release_id": 2,
+        "status": "REVIEWED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "be9e1e09edf2d22358c78eecec4cc3186f8787374296362f6d6a4f2246dd3b1c",
+        "actual_digest": "be9e1e09edf2d22358c78eecec4cc3186f8787374296362f6d6a4f2246dd3b1c",
+        "category": "BREAKING",
+        "compliance": "VERSION_VIOLATION",
+        "reason": "BREAKING_CHANGE_DETECTED"
+      }
+    },
+    {
+      "id": "F3-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.5.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/additive-minor.json",
+        "0000000000000000000000000000000000000000000000000000000000000000"
+      ],
+      "expected": "3",
+      "count": 4,
+      "record": [
+        3,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:23:51.469468+00:00",
+      "hash": "0xc9f539a60fcbac0e7bdfd00603bccb1efbc4fe5edaf29bd3b454efa4e05a1d9f",
+      "readback": {
+        "release_count": 4,
+        "release_id": 3,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "F3-seal",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        3
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 4,
+      "record": [
+        3,
+        "SEALED",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:24:39.817518+00:00",
+      "hash": "0x71fb197a2fdb080dc257a3b9cd96b073bab836bde7f7681d52f72fa7a4a58495",
+      "readback": {
+        "release_count": 4,
+        "release_id": 3,
+        "status": "SEALED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "F3-assess",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        3
+      ],
+      "expected": "ARTIFACT_REJECTED",
+      "count": 4,
+      "record": [
+        3,
+        "REJECTED",
+        "REJECTED",
+        "ARTIFACT_REJECTED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:25:29.198740+00:00",
+      "hash": "0x49af21639c6ab609b47d409d3f70db1f4db9abc127327d07b83c50e392eef494",
+      "readback": {
+        "release_count": 4,
+        "release_id": 3,
+        "status": "REJECTED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "actual_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "category": "REJECTED",
+        "compliance": "ARTIFACT_REJECTED",
+        "reason": "DIGEST_MISMATCH"
+      }
+    },
+    {
+      "id": "F4-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.5.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/wrong-authority.json",
+        "7a7dbf8b59b12b11f055549df755baee9439a17f8822bf344075899f51d145b9"
+      ],
+      "expected": "4",
+      "count": 5,
+      "record": [
+        4,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:26:18.106520+00:00",
+      "hash": "0xca4139ff2b6ebfd3a5d8ec1ab3c76bdcb22f7e09f87e7eccd66653f6a2eb372f",
+      "readback": {
+        "release_count": 5,
+        "release_id": 4,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "7a7dbf8b59b12b11f055549df755baee9439a17f8822bf344075899f51d145b9",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "F4-seal",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        4
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 5,
+      "record": [
+        4,
+        "SEALED",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:27:07.264174+00:00",
+      "hash": "0x26ad9792ad298dded90b82e423020c8658a2f1cff16bcd5ea53ed80ddb08c147",
+      "readback": {
+        "release_count": 5,
+        "release_id": 4,
+        "status": "SEALED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "7a7dbf8b59b12b11f055549df755baee9439a17f8822bf344075899f51d145b9",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "F4-assess",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        4
+      ],
+      "expected": "ARTIFACT_REJECTED",
+      "count": 5,
+      "record": [
+        4,
+        "REJECTED",
+        "REJECTED",
+        "ARTIFACT_REJECTED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:27:55.631766+00:00",
+      "hash": "0x356427b0326c3b5da49e3e9e0a353ae936b7548b0346848235dbbe58205a9e6d",
+      "readback": {
+        "release_count": 5,
+        "release_id": 4,
+        "status": "REJECTED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "7a7dbf8b59b12b11f055549df755baee9439a17f8822bf344075899f51d145b9",
+        "actual_digest": "7a7dbf8b59b12b11f055549df755baee9439a17f8822bf344075899f51d145b9",
+        "category": "REJECTED",
+        "compliance": "ARTIFACT_REJECTED",
+        "reason": "AUTHORITY_MISMATCH"
+      }
+    },
+    {
+      "id": "F5-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.5.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/wrong-package.json",
+        "db264be2680eeac65b33520eecce91af102a68a043bfee7faf30fa3b35808413"
+      ],
+      "expected": "5",
+      "count": 6,
+      "record": [
+        5,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:28:48.990254+00:00",
+      "hash": "0x24d004cd6c1bb8828d4209e302b8b626004f2b53d546017d9b3e619155fed9c6",
+      "readback": {
+        "release_count": 6,
+        "release_id": 5,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "db264be2680eeac65b33520eecce91af102a68a043bfee7faf30fa3b35808413",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "F5-seal",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        5
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 6,
+      "record": [
+        5,
+        "SEALED",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:29:40.050869+00:00",
+      "hash": "0x396f6d3a2c5ed5535deee5989946b1f2e13eb65def7403eb53e57186cf93d6e5",
+      "readback": {
+        "release_count": 6,
+        "release_id": 5,
+        "status": "SEALED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "db264be2680eeac65b33520eecce91af102a68a043bfee7faf30fa3b35808413",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "F5-assess",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        5
+      ],
+      "expected": "ARTIFACT_REJECTED",
+      "count": 6,
+      "record": [
+        5,
+        "REJECTED",
+        "REJECTED",
+        "ARTIFACT_REJECTED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:30:30.899914+00:00",
+      "hash": "0x3abeb59b9cb179f397c67548a31ca9e890a74973b57faf5cdc4ddde30cec875d",
+      "readback": {
+        "release_count": 6,
+        "release_id": 5,
+        "status": "REJECTED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "db264be2680eeac65b33520eecce91af102a68a043bfee7faf30fa3b35808413",
+        "actual_digest": "db264be2680eeac65b33520eecce91af102a68a043bfee7faf30fa3b35808413",
+        "category": "REJECTED",
+        "compliance": "ARTIFACT_REJECTED",
+        "reason": "MANIFEST_INVALID"
+      }
+    },
+    {
+      "id": "R1-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.5.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/missing.json",
+        "0000000000000000000000000000000000000000000000000000000000000000"
+      ],
+      "expected": "6",
+      "count": 7,
+      "record": [
+        6,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:31:25.609879+00:00",
+      "hash": "0x5a285f5ff33129d97ca6dde7a979f60b6a9844db66786baa9dba3d5a7e04cdb7",
+      "readback": {
+        "release_count": 7,
+        "release_id": 6,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "R1-seal",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        6
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 7,
+      "record": [
+        6,
+        "SEALED",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:32:19.472922+00:00",
+      "hash": "0x542ab5c0585a9f6edbe9ac32752b643eb8247aaa7b1f339480553dcc9bf0e76e",
+      "readback": {
+        "release_count": 7,
+        "release_id": 6,
+        "status": "SEALED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "R1-assess",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        6
+      ],
+      "expected": "ARTIFACT_REJECTED",
+      "count": 7,
+      "record": [
+        6,
+        "REJECTED",
+        "REJECTED",
+        "ARTIFACT_REJECTED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:33:13.711225+00:00",
+      "hash": "0x140b75267be5ea0051fb4caf76a2c19bde1eb5d65c3a6a65411ce35647936f15",
+      "expectation_correction": "GitHub raw 404 is a fetched body; exact digest binding safely rejects it.",
+      "readback": {
+        "release_count": 7,
+        "release_id": 6,
+        "status": "REJECTED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "actual_digest": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+        "category": "REJECTED",
+        "compliance": "ARTIFACT_REJECTED",
+        "reason": "DIGEST_MISMATCH"
+      }
+    },
+    {
+      "id": "G1-cancel-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "1.4.2",
+        "1.5.0",
+        "Existing operations, required request fields, response fields and documented behavior must remain compatible.",
+        "https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/additive-minor.json",
+        "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8"
+      ],
+      "expected": "7",
+      "count": 8,
+      "record": [
+        7,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:36:33.720092+00:00",
+      "hash": "0x5ad83484fd16ea9be27be47d58965a2a8064e844a80cbe57958fc381b87cf693",
+      "recovery_note": "Hash recovered from the public Explorer after the SDK receipt request returned HTTP 502; calldata, sender, recipient and authoritative state were independently matched.",
+      "readback": {
+        "release_count": 8,
+        "release_id": 7,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "G1-outsider-cancel",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "cancel_draft",
+      "args": [
+        7
+      ],
+      "expected": "PUBLISHER_ONLY",
+      "count": 8,
+      "record": [
+        7,
+        "DRAFT",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:54:37.386002+00:00",
+      "hash": "0xc2068c631928daf22de12af07832f3310812a9af46a920dc8306716c8010f6b9",
+      "readback": {
+        "release_count": 8,
+        "release_id": 7,
+        "status": "DRAFT",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    },
+    {
+      "id": "G1-owner-cancel",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "cancel_draft",
+      "args": [
+        7
+      ],
+      "expected": "RELEASE_CANCELLED",
+      "count": 8,
+      "record": [
+        7,
+        "CANCELLED",
+        "UNEVALUATED",
+        "UNEVALUATED"
+      ],
+      "status": "READBACK_VERIFIED",
+      "submitted_at": "2026-09-05T04:55:36.289311+00:00",
+      "hash": "0x38b21053e7b41246e73cb80fbccd4d4decffd4229ddba5e43a4356ac9bca65a1",
+      "readback": {
+        "release_count": 8,
+        "release_id": 7,
+        "status": "CANCELLED",
+        "package": "github:dearmore5382/semver-sentinel",
+        "commit": "c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6",
+        "expected_digest": "12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8",
+        "actual_digest": "",
+        "category": "UNEVALUATED",
+        "compliance": "UNEVALUATED",
+        "reason": "PENDING"
+      }
+    }
+  ],
+  "complete": true,
+  "completed_at": "2026-09-05T04:56:31.619729+00:00"
+}

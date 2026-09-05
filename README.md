@@ -5,13 +5,12 @@ artifact is bound to an authenticated publisher and exact repository commit.
 
 ## Remediation status
 
-**Version 2 is locally verified and awaiting user deployment.** The original
-contract `0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594` and current Cloudflare site are
-historical v1 evidence and must not be used for resubmission.
+**Version 2 is deployed and live-verified on Studionet.** The original contract
+`0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594` is historical v1 evidence and must
+not be used for resubmission.
 
-The v2 frontend is reset to a zero address and writes are disabled. After user
-deployment, deployed-byte parity and the frozen live matrix must pass before the
-website is updated.
+The v2 frontend is bound to `0x118f353B758ca1B26d07ec1082B12495107Cf5b3`
+only after byte-for-byte source parity and the frozen 28-step live matrix passed.
 
 ## Steward feedback addressed
 

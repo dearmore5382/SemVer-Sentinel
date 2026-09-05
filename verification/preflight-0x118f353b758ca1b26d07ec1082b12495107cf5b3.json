@@ -1,0 +1,97 @@
+{
+  "network": "Studionet",
+  "chain_id": 61999,
+  "contract": "0x118f353B758ca1B26d07ec1082B12495107Cf5b3",
+  "source_sha256": "24c3b47811ff42d3733edfbd49259f3ed04770ea1171f1c425c153c81ac6298a",
+  "exact_source_parity": true,
+  "initial_release_count": 0,
+  "schema": {
+    "ctor": {
+      "params": [],
+      "kwparams": {}
+    },
+    "methods": {
+      "assess_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      },
+      "cancel_draft": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      },
+      "create_release": {
+        "params": [
+          [
+            "old_version",
+            "string"
+          ],
+          [
+            "new_version",
+            "string"
+          ],
+          [
+            "policy",
+            "string"
+          ],
+          [
+            "artifact_url",
+            "string"
+          ],
+          [
+            "artifact_sha256",
+            "string"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "any",
+        "payable": false
+      },
+      "get_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": true,
+        "ret": "string"
+      },
+      "get_release_count": {
+        "params": [],
+        "kwparams": {},
+        "readonly": true,
+        "ret": "int"
+      },
+      "seal_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      }
+    }
+  }
+}
