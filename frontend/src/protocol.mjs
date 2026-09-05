@@ -10,13 +10,13 @@ export function uint(value) {
 export function parseRelease(raw) {
   if (typeof raw !== 'string' || raw === 'RELEASE_NOT_FOUND') throw new Error('Release record not found.');
   const p = raw.split('|');
-  if (p.length !== 12 || !addressOK(p[1]) || !/^[a-f0-9]{64}$/.test(p[6]) || !/^[a-f0-9]{64}$/.test(p[7])) {
+  if (p.length !== 14 || !addressOK(p[1]) || !p[6].startsWith('https://raw.githubusercontent.com/') || !/^[a-f0-9]{40}$/.test(p[7]) || !/^[a-f0-9]{64}$/.test(p[8]) || (p[9] && !/^[a-f0-9]{64}$/.test(p[9]))) {
     throw new Error('Malformed contract readback.');
   }
   return {
     status: p[0], publisher: p[1], package: p[2], oldVersion: p[3], newVersion: p[4],
-    bump: p[5], oldHash: p[6], newHash: p[7], category: p[8], compliance: p[9],
-    reason: p[10], observations: p[11] ? JSON.parse(p[11]) : null,
+    bump: p[5], artifactUrl: p[6], artifactCommit: p[7], expectedDigest: p[8], actualDigest: p[9],
+    category: p[10], compliance: p[11], reason: p[12], observations: p[13] ? JSON.parse(p[13]) : null,
   };
 }
 export function loadJournal(text) {
@@ -45,14 +45,14 @@ export function stageOf(tx) {
 export function verifyReleaseReadback(record, returned, current) {
   const allowed = {
     seal_release: ['RELEASE_SEALED'], cancel_draft: ['RELEASE_CANCELLED'],
-    assess_release: ['COMPLIANT', 'VERSION_VIOLATION', 'REVIEW_REQUIRED', 'ASSESSMENT_RETRYABLE'],
+    assess_release: ['COMPLIANT', 'VERSION_VIOLATION', 'REVIEW_REQUIRED', 'ARTIFACT_REJECTED', 'ASSESSMENT_RETRYABLE'],
   };
   if (record.method !== 'create_release' && !allowed[record.method]?.includes(returned)) {
     throw new Error(`Contract rejected the requested transition: ${returned}`);
   }
   if (record.method === 'create_release') {
     const args = record.args;
-    if (current.publisher.toLowerCase() !== record.sender.toLowerCase() || current.package !== args[0] || current.oldVersion !== args[1] || current.newVersion !== args[2] || current.status !== 'DRAFT') {
+    if (current.publisher.toLowerCase() !== record.sender.toLowerCase() || current.oldVersion !== args[0] || current.newVersion !== args[1] || current.artifactUrl !== args[3] || current.expectedDigest !== args[4].toLowerCase() || current.status !== 'DRAFT') {
       throw new Error('Created record does not match sealed inputs.');
     }
   } else if (record.method === 'seal_release' && current.status !== 'SEALED') {
@@ -61,7 +61,9 @@ export function verifyReleaseReadback(record, returned, current) {
     throw new Error('Cancellation readback mismatch.');
   } else if (record.method === 'assess_release' && returned === 'ASSESSMENT_RETRYABLE' && current.status !== 'SEALED') {
     throw new Error('Retry-safe assessment mutated state.');
-  } else if (record.method === 'assess_release' && returned !== 'ASSESSMENT_RETRYABLE' && (current.status !== 'REVIEWED' || current.compliance !== returned)) {
+  } else if (record.method === 'assess_release' && returned === 'ARTIFACT_REJECTED' && (current.status !== 'REJECTED' || current.compliance !== returned)) {
+    throw new Error('Artifact rejection readback mismatch.');
+  } else if (record.method === 'assess_release' && !['ASSESSMENT_RETRYABLE', 'ARTIFACT_REJECTED'].includes(returned) && (current.status !== 'REVIEWED' || current.compliance !== returned)) {
     throw new Error('Assessment readback mismatch.');
   }
   return true;

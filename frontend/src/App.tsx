@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { abi, createClient } from 'genlayer-js';
 import { studionet } from 'genlayer-js/chains';
 import { TransactionHashVariant } from 'genlayer-js/types';
@@ -9,7 +9,7 @@ import { addressOK, hashOK, loadJournal, parseRelease, stageOf, uint, verifyRele
 type Provider = NonNullable<Parameters<typeof createClient>[0]>['provider'];
 type ReleaseRecord = {
   status: string; publisher: string; package: string; oldVersion: string; newVersion: string;
-  bump: string; oldHash: string; newHash: string; category: string; compliance: string;
+  bump: string; artifactUrl: string; artifactCommit: string; expectedDigest: string; actualDigest: string; category: string; compliance: string;
   reason: string; observations: Record<string, string> | null;
 };
 type JournalEntry = {
@@ -22,8 +22,7 @@ const writesEnabled = configured && deployment.liveAuditVerified;
 const reader = createClient({ chain: studionet });
 const journalKey = 'semver-sentinel:journal:v1';
 const intentKey = 'semver-sentinel:intent:v1';
-const initialOld = 'GET /signals/{id} -> 200 { id: string, state: string }';
-const initialNew = initialOld + '\nGET /signals/{id}/history -> 200 [{ state: string }]';
+const initialArtifact = 'https://raw.githubusercontent.com/owner/repository/40-character-commit/release.json';
 
 const short = (value: string) => value.length > 13 ? `${value.slice(0, 7)}…${value.slice(-5)}` : value;
 const errorText = (error: unknown) => error instanceof Error ? error.message : 'The operation could not be completed.';
@@ -42,9 +41,8 @@ export default function App() {
   const [releaseId, setReleaseId] = useState('0');
   const [record, setRecord] = useState<ReleaseRecord | null>(null);
   const [journal, setJournal] = useState<JournalEntry[]>([]);
-  const [oldApi, setOldApi] = useState(initialOld);
-  const [newApi, setNewApi] = useState(initialNew);
-  const lines = useMemo(() => ({ old: oldApi.split('\n'), next: newApi.split('\n') }), [oldApi, newApi]);
+  const [artifactUrl, setArtifactUrl] = useState(initialArtifact);
+  const [artifactDigest, setArtifactDigest] = useState('');
 
   useEffect(() => {
     try { setJournal(loadJournal(localStorage.getItem(journalKey))); }
@@ -150,7 +148,7 @@ export default function App() {
   function createRelease(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    send('create_release', [String(data.get('packageName')), String(data.get('oldVersion')), String(data.get('newVersion')), String(data.get('policy')), oldApi, newApi]);
+    send('create_release', [String(data.get('oldVersion')), String(data.get('newVersion')), String(data.get('policy')), artifactUrl.trim(), artifactDigest.trim().toLowerCase()]);
   }
 
   return (
@@ -167,10 +165,10 @@ export default function App() {
       <section className="hero" id="top">
         <div className="eyebrow"><Radar size={15} /> GenLayer compatibility intelligence</div>
         <h1>Know when a release<br /><em>crosses the line.</em></h1>
-        <p>Seal two API snapshots. Let independent validators inspect semantic change. Keep the version decision deterministic and reviewable.</p>
+        <p>Bind a release to an immutable repository artifact. Let validators fetch, hash and inspect what the package authority actually committed.</p>
         <div className="hero-actions"><a className="primary" href="#review">Open review desk <ArrowRight size={18} /></a><a className="secondary" href="#protocol">Read the protocol</a></div>
         <div className="release-rail" aria-label="Release review stages">
-          {['Snapshot', 'Seal', 'Consensus', 'Record'].map((label, index) => <div key={label}><span>{index < 2 ? <Check size={14} /> : index + 1}</span><b>{label}</b><small>{['Exact inputs', 'Publisher lock', 'Independent review', 'Immutable outcome'][index]}</small></div>)}
+          {['Artifact', 'Seal', 'Consensus', 'Record'].map((label, index) => <div key={label}><span>{index < 2 ? <Check size={14} /> : index + 1}</span><b>{label}</b><small>{['Commit + digest', 'Publisher lock', 'Independent fetch', 'Bound outcome'][index]}</small></div>)}
         </div>
       </section>
 
@@ -178,17 +176,16 @@ export default function App() {
         <div className="section-heading"><div><span className="kicker">01 / REVIEW DESK</span><h2>Compare the contract, not the marketing.</h2></div><div className={`network ${configured ? 'ready' : ''}`}><i /> Studionet · {configured ? short(address) : 'deployment pending'}</div></div>
         <div className="review-grid">
           <form className="release-form" onSubmit={createRelease}>
-            <div className="panel-title"><Braces /><div><b>Release envelope</b><span>Publisher-sealed inputs</span></div></div>
-            <label>Package name<input name="packageName" defaultValue="signal-kit" maxLength={100} required /></label>
+            <div className="panel-title"><Braces /><div><b>Release envelope</b><span>Package identity derives from the repository URL</span></div></div>
             <div className="version-row"><label>Previous version<input name="oldVersion" defaultValue="1.4.2" pattern="(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)" required /></label><GitCompareArrows /><label>Candidate version<input name="newVersion" defaultValue="1.5.0" pattern="(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)" required /></label></div>
             <label>Compatibility policy<textarea name="policy" defaultValue="Existing operations, required request fields, response fields and documented behavior must remain compatible." maxLength={1200} required /></label>
             <button className="submit" disabled={!writesEnabled || busy}>Create release record <ArrowRight size={17} /></button>
             {!writesEnabled && <p className="guard"><LockKeyhole size={15} /> Write actions remain locked until the reviewed contract is deployed and live-verified.</p>}
           </form>
           <div className="diff-panel">
-            <div className="diff-head"><div><span className="dot coral" /> Previous API</div><div><span className="dot mint" /> Candidate API</div></div>
-            <div className="editors"><label><span>OLD SNAPSHOT</span><textarea value={oldApi} onChange={(e) => setOldApi(e.target.value)} maxLength={3500} /></label><label><span>NEW SNAPSHOT</span><textarea value={newApi} onChange={(e) => setNewApi(e.target.value)} maxLength={3500} /></label></div>
-            <div className="line-summary"><span>− {lines.old.length} sealed line{lines.old.length === 1 ? '' : 's'}</span><span>+ {lines.next.length} candidate line{lines.next.length === 1 ? '' : 's'}</span></div>
+            <div className="diff-head"><div><span className="dot coral" /> Immutable locator</div><div><span className="dot mint" /> Content commitment</div></div>
+            <div className="editors"><label><span>RAW GITHUB ARTIFACT URL</span><textarea value={artifactUrl} onChange={(e) => setArtifactUrl(e.target.value)} maxLength={500} required /></label><label><span>EXPECTED SHA-256</span><textarea value={artifactDigest} onChange={(e) => setArtifactDigest(e.target.value)} maxLength={64} required placeholder="64 lowercase hex characters" /></label></div>
+            <div className="line-summary"><span>Package = GitHub owner/repository</span><span>Revision = full 40-hex commit</span></div>
           </div>
         </div>
       </section>
@@ -198,18 +195,18 @@ export default function App() {
         <div className="registry-grid">
           <div className="lookup"><label>Release ID<input value={releaseId} onChange={(e) => setReleaseId(e.target.value)} inputMode="numeric" /></label><button onClick={loadRelease} disabled={!configured || busy}>Load record <RefreshCw size={16} /></button><div className="quick-actions"><button onClick={() => send('seal_release', [uint(releaseId)])} disabled={!writesEnabled || busy}>Seal</button><button onClick={() => send('assess_release', [uint(releaseId)])} disabled={!writesEnabled || busy}>Assess</button><button onClick={() => send('cancel_draft', [uint(releaseId)])} disabled={!writesEnabled || busy}>Cancel draft</button></div><output>{notice}</output></div>
           <article className="result-card">
-            {record ? <><div className="result-top"><span className={`verdict ${record.compliance.toLowerCase()}`}>{record.compliance}</span><span>{record.bump} release</span></div><h3>{record.package}</h3><p className="version-title">{record.oldVersion} <ArrowRight size={18} /> {record.newVersion}</p><dl><div><dt>State</dt><dd>{record.status}</dd></div><div><dt>Semantic class</dt><dd>{record.category}</dd></div><div><dt>Reason</dt><dd>{record.reason}</dd></div><div><dt>Publisher</dt><dd>{short(record.publisher)}</dd></div></dl><div className="hashes"><span>OLD {short(record.oldHash)}</span><span>NEW {short(record.newHash)}</span></div></> : <div className="empty"><ShieldCheck /><h3>No record loaded</h3><p>After deployment, load a finalized release without trusting a frontend-generated verdict.</p></div>}
+            {record ? <><div className="result-top"><span className={`verdict ${record.compliance.toLowerCase()}`}>{record.compliance}</span><span>{record.bump} release</span></div><h3>{record.package}</h3><p className="version-title">{record.oldVersion} <ArrowRight size={18} /> {record.newVersion}</p><dl><div><dt>State</dt><dd>{record.status}</dd></div><div><dt>Semantic class</dt><dd>{record.category}</dd></div><div><dt>Reason</dt><dd>{record.reason}</dd></div><div><dt>Publisher</dt><dd>{short(record.publisher)}</dd></div></dl><div className="hashes"><span>COMMIT {short(record.artifactCommit)}</span><span>DIGEST {short(record.actualDigest || record.expectedDigest)}</span></div></> : <div className="empty"><ShieldCheck /><h3>No record loaded</h3><p>After deployment, load a finalized artifact-bound release without trusting a frontend-generated verdict.</p></div>}
           </article>
         </div>
       </section>
 
       <section className="protocol" id="protocol">
-        <div><span className="kicker">03 / SAFETY MODEL</span><h2>AI observes.<br />The protocol decides.</h2><p>The model never chooses compliance or version policy. It returns a closed set of compatibility observations; deterministic precedence maps those observations to the stored outcome.</p></div>
-        <div className="principles">{[[Terminal, 'Text-only boundary', 'No images, browsing or mutable external sources.'], [GitCompareArrows, 'Effect-aligned consensus', 'Validators compare canonical outcome, not prose.'], [CircleAlert, 'Retry-safe failure', 'Runtime failure keeps the sealed release unchanged.'], [History, 'Terminal history', 'Reviewed and cancelled records cannot be overwritten.']].map(([Icon, title, text]) => { const C = Icon as typeof Terminal; return <article key={String(title)}><C /><div><b>{String(title)}</b><p>{String(text)}</p></div></article>; })}</div>
+        <div><span className="kicker">03 / SAFETY MODEL</span><h2>Artifacts ground.<br />AI observes. Code decides.</h2><p>Validators independently fetch the commit-pinned artifact and recompute its digest before semantic judgment. The model never chooses compliance or version policy.</p></div>
+        <div className="principles">{[[Terminal, 'Authenticated package', 'Owner/repository and commit derive from a canonical GitHub raw URL.'], [GitCompareArrows, 'Independent binding', 'Every validator re-fetches and re-hashes the exact artifact.'], [CircleAlert, 'Retry-safe failure', 'Transport or model failure keeps the sealed release unchanged.'], [History, 'Terminal history', 'Reviewed, rejected and cancelled records cannot be overwritten.']].map(([Icon, title, text]) => { const C = Icon as typeof Terminal; return <article key={String(title)}><C /><div><b>{String(title)}</b><p>{String(text)}</p></div></article>; })}</div>
       </section>
 
       <section className="journal"><div className="journal-head"><div><span className="kicker">TRANSACTION JOURNAL</span><h2>One intent. One hash.</h2></div><span>{journal.length} entries</span></div>{journal.length ? journal.map((row) => <div className="journal-row" key={row.hash}><span className="journal-icon"><History /></span><div><b>{row.method}</b><small>{short(row.hash)} · {row.stage}</small></div><button onClick={() => reconcile(row)} disabled={busy || row.stage === 'VERIFIED'}>Recheck</button></div>) : <p className="no-journal">No browser transactions yet. Pending hashes will remain here across refreshes.</p>}</section>
-      <footer><div className="brand mini"><img src="/semver-sentinel-logo.png" alt="" /><span>SemVer <b>Sentinel</b></span></div><p>A narrow compatibility record for submitted API descriptions. Not a security audit or proof of shipped code.</p><span>Built for GenLayer Studionet</span></footer>
+      <footer><div className="brand mini"><img src="/semver-sentinel-logo.png" alt="" /><span>SemVer <b>Sentinel</b></span></div><p>A narrow compatibility record for one commit-pinned release artifact. Not a security audit or proof that a binary was distributed.</p><span>Built for GenLayer Studionet</span></footer>
     </main>
   );
 }

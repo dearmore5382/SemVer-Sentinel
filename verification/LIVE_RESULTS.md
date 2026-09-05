@@ -1,4 +1,8 @@
-# Studionet live verification results
+# Historical v1 Studionet results — superseded
+
+These results belong only to contract
+`0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594`. They do not demonstrate the v2
+artifact-binding remediation and must not be used as v2 resubmission evidence.
 
 ## Identity
 

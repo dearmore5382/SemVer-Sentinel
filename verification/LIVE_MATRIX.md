@@ -1,42 +1,26 @@
-# Frozen Studionet live verification matrix
+# Frozen v2 live matrix — execute only after user deployment
 
-Do not change expected outcomes after observing live results. Use small,
-text-only fixtures from this repository. Send each write once, checkpoint its
-hash immediately and poll that same hash to `FINALIZED`.
+Before deployment, publish distinct artifacts in this repository and pin their
+raw URLs to the commit containing them. Each file includes the authorized test
+publisher and its exact SHA-256 is recomputed from fetched bytes.
 
-## Preflight
+| ID | Path | Expected result and readback |
+| --- | --- | --- |
+| H1 | authenticated additive minor | `REVIEWED / NON_BREAKING / COMPLIANT`; expected digest = actual digest |
+| H2 | authenticated breaking major | `REVIEWED / BREAKING / COMPLIANT` |
+| A1 | breaking patch with prompt injection | `REVIEWED / BREAKING / VERSION_VIOLATION` |
+| F1 | branch `main` locator | `IMMUTABLE_GITHUB_ARTIFACT_REQUIRED`; count unchanged |
+| F2 | deceptive GitHub hostname | `IMMUTABLE_GITHUB_ARTIFACT_REQUIRED`; count unchanged |
+| F3 | correct URL with one-byte-wrong digest | `REJECTED / ARTIFACT_REJECTED / DIGEST_MISMATCH` |
+| F4 | artifact publisher differs from creator | `REJECTED / ARTIFACT_REJECTED / AUTHORITY_MISMATCH` |
+| F5 | artifact package differs from URL-derived package | `REJECTED / ARTIFACT_REJECTED / MANIFEST_INVALID` |
+| R1 | missing pinned artifact | `ASSESSMENT_RETRYABLE`; record remains byte-for-byte `SEALED` |
+| G1 | outsider seal/cancel | `PUBLISHER_ONLY`; no mutation |
+| G2 | replay reviewed/rejected assessment | `RELEASE_NOT_ASSESSABLE`; no mutation |
 
-1. Deploy exact source SHA-256
-   `573c0feeda059b10071ba8863f92d5fa51723f10f50c112bd877924217c2e4db`.
-2. Record deployer, deployment transaction and contract address.
-3. Fetch deployed source bytes and verify exact SHA-256 parity.
-4. Verify release count is zero.
+For every write verify exact sender, recipient, calldata, hash, `FINALIZED`,
+successful execution, `MAJORITY_AGREE`, exact return and authoritative readback.
+Never automatically resubmit. Preserve every retry or failed attempt.
 
-## Live cases
-
-| ID | Group | Input/sequence | Expected authoritative result |
-|---|---|---|---|
-| H1 | Happy | `additive.json`: create -> seal -> assess | `REVIEWED / NON_BREAKING / COMPLIANT` |
-| H2 | Happy | breaking change with `1.4.2 -> 2.0.0` | `REVIEWED / BREAKING / COMPLIANT` |
-| F1 | Failure | wrong wallet seals H1 draft | `PUBLISHER_ONLY`; unchanged draft |
-| F2 | Failure | equal/decreasing SemVer creation | `INVALID_VERSION_TRANSITION`; count unchanged |
-| F3 | Failure | malformed/uncertain model response if naturally observed | retryable or `REVIEW_REQUIRED`; never positive by default |
-| A1 | Adversarial | `breaking-patch.json` | `BREAKING / VERSION_VIOLATION` |
-| A2 | Adversarial | `prompt-injection.json` | no compliance override; expected violation if newly required input observed |
-| A3 | Replay | assess an already reviewed H1 record | `RELEASE_NOT_ASSESSABLE`; stored record unchanged |
-
-Model behavior cannot be forced safely on the public network. If H1/H2/A1/A2
-does not match the frozen matrix, stop. Do not alter expectations or resubmit the
-same transition. Diagnose the exact source, prompt output and validator effect.
-
-## Evidence per write
-
-Record exact arguments, sender, chain, contract, hash, finality, GenVM execution,
-consensus result and `get_release` readback. A finalized business rejection is
-an expected negative result, not a successful positive workflow.
-
-## Frontend gate
-
-Only after required live cases pass: place the verified address/hash in
-`frontend/src/deployment.json`, set `liveAuditVerified` to true, rebuild, verify
-compiled identity, and test connect/write/refresh/same-hash reconciliation.
+The frontend remains write-disabled until deployed-source parity and every
+mandatory live case pass.

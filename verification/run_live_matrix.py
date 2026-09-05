@@ -144,6 +144,7 @@ def public_report(journal):
 
 
 def main():
+    raise RuntimeError("SUPERSEDED_V1_RUNNER_DO_NOT_EXECUTE")
     if not sys.stdin.isatty():
         raise RuntimeError("INTERACTIVE_NO_ECHO_TERMINAL_REQUIRED")
     keys = json.loads(getpass.getpass("KEY_INPUT_REQUIRED_NO_ECHO: "))

@@ -38,6 +38,7 @@ def save(record: dict) -> None:
 
 
 def main() -> None:
+    raise RuntimeError("SUPERSEDED_V1_RETRY_DO_NOT_EXECUTE")
     if not RETRY_FILE.exists():
         parity()
         parts = view("get_release", [3]).split("|")

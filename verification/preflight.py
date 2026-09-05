@@ -39,6 +39,7 @@ def view(method, args=None):
 
 
 def main():
+    raise RuntimeError("SUPERSEDED_V1_PREFLIGHT_DO_NOT_USE_FOR_V2")
     chain_id = int(rpc("eth_chainId", []), 16)
     deployed = base64.b64decode(rpc("gen_getContractCode", [ADDRESS]))
     local = SOURCE.read_bytes()

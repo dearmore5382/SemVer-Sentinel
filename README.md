@@ -1,93 +1,57 @@
-# SemVer Sentinel
+# SemVer Sentinel v2
 
-SemVer Sentinel is a narrow GenLayer DApp that records whether a submitted API
-change is semantically compatible with its proposed version bump. Publishers
-seal the old API, new API, SemVer pair and compatibility policy directly in the
-contract. Validators independently classify compatibility observations; the
-contract deterministically derives the final compliance result.
+SemVer Sentinel reviews API compatibility only after an immutable release
+artifact is bound to an authenticated publisher and exact repository commit.
 
-## Project links
+## Remediation status
 
-- Live DApp: https://semver-sentinel.pages.dev
-- GitHub: https://github.com/dearmore5382/SemVer-Sentinel
-- Studionet contract:
-  `0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594`
+**Version 2 is locally verified and awaiting user deployment.** The original
+contract `0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594` and current Cloudflare site are
+historical v1 evidence and must not be used for resubmission.
 
-## Current status
+The v2 frontend is reset to a zero address and writes are disabled. After user
+deployment, deployed-byte parity and the frozen live matrix must pass before the
+website is updated.
 
-**Deployed and live-verified on Studionet.** Deployed byte-for-byte source parity
-and the predefined behavioral matrix have been verified against contract
-`0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594`.
+## Steward feedback addressed
 
-- Contract: 7 public methods, no constructor arguments, no web fetch, no custody.
-- Local suite: 21 pytest tests covering happy, failure and adversarial behavior.
+The original design trusted descriptions typed by the publisher. Version 2:
+
+- accepts only a canonical GitHub raw URL pinned to a full 40-hex commit;
+- derives package identity from the URL's owner/repository;
+- requires the artifact to name the GenLayer creator address as publisher;
+- makes every validator fetch and SHA-256 the exact artifact bytes;
+- requires digest, schema, package, publisher, versions and policy to match;
+- classifies semantics only after those bindings succeed;
+- prevents provenance failure from producing `COMPLIANT`;
+- preserves sealed state when source/model availability is uncertain.
+
+## Honest boundary
+
+This proves integrity and publisher attribution for one artifact at one commit.
+It does not prove GitHub-login ownership, completeness of the Git tree,
+distribution to users or package security.
+
+## Local gates
+
+- 19 Python semantic/static/Direct Mode tests pass.
 - GenVM lint, schema validation and typecheck pass.
-- Frontend: 5 unit tests, TypeScript, lint and production build pass.
-- Desktop and 390 px mobile QA pass with no broken images or horizontal overflow.
-- Live verification: 15 predefined writes plus one explicitly authorized,
-  single-attempt retry; every transaction finalized with majority agreement.
-- The first prompt-injection assessment returned `ASSESSMENT_RETRYABLE` without
-  mutation. Its one controlled retry produced the expected
-  `BREAKING / VERSION_VIOLATION` state. Both attempts remain in the evidence.
-- Exact contract source SHA-256:
-  `573c0feeda059b10071ba8863f92d5fa51723f10f50c112bd877924217c2e4db`
-  (case-insensitive hexadecimal; canonical lowercase is recorded below).
-
-Canonical source hash:
-
-```text
-573c0feeda059b10071ba8863f92d5fa51723f10f50c112bd877924217c2e4db
-```
-
-## Why GenLayer
-
-Whether an API description removes a behavior, makes an input newly required,
-or changes a response incompatibly is semantic judgment. Ordinary deterministic
-code then parses SemVer and decides whether that observed category complies.
-The model cannot write a compliance verdict directly.
-
-## Lifecycle
-
-```text
-DRAFT -> SEALED -> REVIEWED
-  └----> CANCELLED
-```
-
-Model/runtime failure returns `ASSESSMENT_RETRYABLE` and leaves the sealed state
-unchanged. Reviewed and cancelled records are terminal.
-
-## Local verification
+- 5 frontend tests, TypeScript, lint and production build pass.
+- Regression coverage includes mutable branch, deceptive hostname, digest
+  mismatch, package substitution, authority mismatch, source failure, replay and
+  prompt injection.
 
 ```powershell
 python -m pytest -q
-$env:PYTHONIOENCODING='utf-8'
 genvm-lint check contracts\SemVerSentinel.py
 genvm-lint typecheck contracts\SemVerSentinel.py
 cd frontend
-npm ci
 npm test
 npm run typecheck
 npm run lint
 npm run build
 ```
 
-## Repository map
-
-- `SPEC.md`: proof obligation, closed observations and invariants.
-- `PLAN.md`: staged build and deployment stop condition.
-- `contracts/SemVerSentinel.py`: sole authoritative contract source.
-- `fixtures/`: compact text/JSON happy and adversarial samples.
-- `tests/`: semantic, static and Direct Mode tests.
-- `verification/AUDIT.md`: findings and honest boundaries.
-- `verification/LIVE_MATRIX.md`: exact post-deploy verification plan.
-- `verification/LIVE_RESULTS.md`: live outcomes, transaction hashes and boundaries.
-- `verification/DEPLOYMENT_READINESS.md`: frozen handoff.
-- `frontend/`: distinct English-only release review console.
-
-## Honest limitations
-
-The publisher authors both API snapshots and policy. The contract hashes and
-preserves those exact strings but does not prove they match a repository or
-deployed service. A review is not a security audit, package certification or
-proof of shipped behavior. This design creates an attributable semantic record;
-it does not create external provenance.
+See `SPEC.md`, `PLAN.md`, `fixtures/artifacts/` and
+`verification/LIVE_MATRIX.md`. Historical v1 evidence remains clearly labelled
+in `verification/` until it is archived in the remediation commit.
