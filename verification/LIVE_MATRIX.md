@@ -1,8 +1,16 @@
 # Frozen v2 live matrix — execute only after user deployment
 
-Before deployment, publish distinct artifacts in this repository and pin their
-raw URLs to the commit containing them. Each file includes the authorized test
-publisher and its exact SHA-256 is recomputed from fetched bytes.
+The artifacts are published at immutable revision
+`c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6`. The byte lengths and SHA-256
+values below were independently recomputed after fetching the public raw URLs.
+
+| Artifact | Bytes | SHA-256 |
+| --- | ---: | --- |
+| [`additive-minor.json`](https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/additive-minor.json) | 502 | `12032ff8f4d678650ad67434a000dca2044226fcbadd2fcd777b5197dc9d73d8` |
+| [`breaking-major.json`](https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/breaking-major.json) | 479 | `5a80f119d002c5b0f9ae47f4185df6794d821e52ebe87a6719badf9d3a6a6d32` |
+| [`prompt-injection-patch.json`](https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/prompt-injection-patch.json) | 525 | `be9e1e09edf2d22358c78eecec4cc3186f8787374296362f6d6a4f2246dd3b1c` |
+| [`wrong-authority.json`](https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/wrong-authority.json) | 502 | `7a7dbf8b59b12b11f055549df755baee9439a17f8822bf344075899f51d145b9` |
+| [`wrong-package.json`](https://raw.githubusercontent.com/dearmore5382/SemVer-Sentinel/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/fixtures/artifacts/wrong-package.json) | 506 | `db264be2680eeac65b33520eecce91af102a68a043bfee7faf30fa3b35808413` |
 
 | ID | Path | Expected result and readback |
 | --- | --- | --- |

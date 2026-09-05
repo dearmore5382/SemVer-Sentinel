@@ -5,6 +5,8 @@ constructor arguments after the final source hash is recorded below.
 
 - Frozen v2 source SHA-256:
   `24c3b47811ff42d3733edfbd49259f3ed04770ea1171f1c425c153c81ac6298a`
+- Frozen source revision:
+  [`c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6`](https://github.com/dearmore5382/SemVer-Sentinel/blob/c199fa1b2eab1b8daa76c86ebe448f1c6dfac1f6/contracts/SemVerSentinel.py)
 - Public surface: 4 write methods, 2 view methods.
 - External source: exact commit-pinned GitHub raw JSON only.
 
