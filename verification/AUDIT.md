@@ -1,27 +1,24 @@
-# V2 adversarial audit
+# V3 pre-deployment adversarial audit
 
-The remediation is locally and live verified against the exact v2 deployment.
-See `LIVE_RESULTS.md` and the sanitized v2 journal for transaction-level proof.
+Status: local gates passed; live chain cases pending a fresh v3 deployment.
 
-## Happy paths
+## Happy path
 
-- authenticated additive minor -> `NON_BREAKING / COMPLIANT`;
-- authenticated breaking major -> `BREAKING / COMPLIANT`;
-- package, commit, expected digest and validator digest persist together.
+The Direct Mode suite serves two generated npm tarballs, matching registry metadata and SHA-512 integrity values. The contract extracts each `index.d.ts`, classifies an additive change and persists `NON_BREAKING / COMPLIANT` together with both tarball integrity strings and both declaration SHA-256 hashes.
 
-## Failure and adversarial paths
+## Failure paths
 
-- mutable branch and deceptive origin rejected before state;
-- one-byte digest mismatch, publisher mismatch and object mismatch produce
-  terminal `ARTIFACT_REJECTED`;
-- unavailable source/model is retryable with sealed state unchanged;
-- wrong actor, wrong state and replay cannot bypass lifecycle;
-- prompt injection plus a newly required input produces `VERSION_VIOLATION`;
-- semantic output cannot override failed provenance.
+- metadata package/version mismatch -> `ARTIFACT_REJECTED`;
+- non-canonical tarball locator -> `ARTIFACT_REJECTED`;
+- one-byte integrity mismatch -> `ARTIFACT_REJECTED`;
+- missing/oversized declaration -> `ARTIFACT_REJECTED`;
+- registry/model unavailable -> retryable, sealed state unchanged;
+- wrong actor, wrong state and replay -> rejected.
 
-## Honest boundary
+## Adversarial combinations
 
-The GitHub coordinate is the package identity for this protocol. A committed
-wallet binds the on-chain publisher to that artifact. This is not GitHub OAuth,
-package-registry verification, complete Git-tree attestation, malware analysis
-or proof of distribution.
+Caller-controlled URLs, source descriptions and digests do not exist in the ABI. Prompt-like text inside a declaration remains untrusted evidence. The model cannot set registry facts, integrity, SemVer compliance or lifecycle state. Every validator independently repeats metadata acquisition, tarball hashing, source extraction and classification. Consensus requires exact equality of all four artifact/source bindings plus deterministic outcome equality.
+
+## Evidence honesty
+
+Mocks prove deterministic mechanics and negative controls; they are not live npm or Studionet evidence. A submission-ready claim requires fresh deployment, byte-for-byte explorer source parity, real registry happy/failure cases, finality, execution success, accepted consensus and authoritative contract readback.

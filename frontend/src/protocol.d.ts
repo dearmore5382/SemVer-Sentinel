@@ -4,7 +4,7 @@ export function hashOK(value: unknown): value is string;
 export function uint(value: unknown): bigint;
 export type ReleaseRecord = {
   status: string; publisher: string; package: string; oldVersion: string; newVersion: string;
-  bump: string; artifactUrl: string; artifactCommit: string; expectedDigest: string; actualDigest: string; category: string; compliance: string;
+  bump: string; category: string; compliance: string;
   reason: string; observations: Record<string, string> | null;
 };
 export function parseRelease(raw: unknown): ReleaseRecord;

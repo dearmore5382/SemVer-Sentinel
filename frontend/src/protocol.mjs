@@ -10,13 +10,12 @@ export function uint(value) {
 export function parseRelease(raw) {
   if (typeof raw !== 'string' || raw === 'RELEASE_NOT_FOUND') throw new Error('Release record not found.');
   const p = raw.split('|');
-  if (p.length !== 14 || !addressOK(p[1]) || !p[6].startsWith('https://raw.githubusercontent.com/') || !/^[a-f0-9]{40}$/.test(p[7]) || !/^[a-f0-9]{64}$/.test(p[8]) || (p[9] && !/^[a-f0-9]{64}$/.test(p[9]))) {
+  if (p.length !== 10 || !addressOK(p[1]) || !p[2]) {
     throw new Error('Malformed contract readback.');
   }
   return {
     status: p[0], publisher: p[1], package: p[2], oldVersion: p[3], newVersion: p[4],
-    bump: p[5], artifactUrl: p[6], artifactCommit: p[7], expectedDigest: p[8], actualDigest: p[9],
-    category: p[10], compliance: p[11], reason: p[12], observations: p[13] ? JSON.parse(p[13]) : null,
+    bump: p[5], category: p[6], compliance: p[7], reason: p[8], observations: p[9] ? JSON.parse(p[9]) : null,
   };
 }
 export function loadJournal(text) {
@@ -52,7 +51,7 @@ export function verifyReleaseReadback(record, returned, current) {
   }
   if (record.method === 'create_release') {
     const args = record.args;
-    if (current.publisher.toLowerCase() !== record.sender.toLowerCase() || current.oldVersion !== args[0] || current.newVersion !== args[1] || current.artifactUrl !== args[3] || current.expectedDigest !== args[4].toLowerCase() || current.status !== 'DRAFT') {
+    if (current.publisher.toLowerCase() !== record.sender.toLowerCase() || current.package !== args[0].toLowerCase() || current.oldVersion !== args[1] || current.newVersion !== args[2] || current.status !== 'DRAFT') {
       throw new Error('Created record does not match sealed inputs.');
     }
   } else if (record.method === 'seal_release' && current.status !== 'SEALED') {

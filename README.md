@@ -1,56 +1,28 @@
-# SemVer Sentinel v2
+# SemVer Sentinel v3
 
-SemVer Sentinel reviews API compatibility only after an immutable release
-artifact is bound to an authenticated publisher and exact repository commit.
+SemVer Sentinel checks whether the version bump between two exact npm releases matches compatibility changes in the TypeScript declarations that actually shipped in their registry tarballs.
 
-## Remediation status
+## Why v3 exists
 
-**Version 2 is deployed and live-verified on Studionet.** The original contract
-`0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594` is historical v1 evidence and must
-not be used for resubmission.
+The steward correctly rejected v2: a commit-pinned JSON manifest was immutable, but its `old_api` and `new_api` fields were still publisher-authored claims. V3 removes descriptions, URLs and hashes from caller input. A caller supplies only an npm package, two exact versions and a review policy.
 
-The v2 frontend is bound to `0x118f353B758ca1B26d07ec1082B12495107Cf5b3`
-only after byte-for-byte source parity and the frozen 28-step live matrix passed.
+For each version the contract constructs the npm registry URL, verifies exact package/version identity, requires the canonical npm tarball URL, recomputes the published SHA-512 integrity, and extracts the shipped `.d.ts` entrypoint. Only then may validators classify compatibility. The on-chain observation records both registry integrity values and both extracted-source SHA-256 values.
 
-## Steward feedback addressed
+## Current status
 
-The original design trusted descriptions typed by the publisher. Version 2:
+V3 is locally frozen and ready to deploy; it is deliberately not marked live until source parity and the post-deploy matrix pass. `frontend/src/deployment.json` contains a zero address, so this commit cannot accidentally write to v2.
 
-- accepts only a canonical GitHub raw URL pinned to a full 40-hex commit;
-- derives package identity from the URL's owner/repository;
-- requires the artifact to name the GenLayer creator address as publisher;
-- makes every validator fetch and SHA-256 the exact artifact bytes;
-- requires digest, schema, package, publisher, versions and policy to match;
-- classifies semantics only after those bindings succeed;
-- prevents provenance failure from producing `COMPLIANT`;
-- preserves sealed state when source/model availability is uncertain.
+Historical deployments `0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594` (v1) and `0x118f353B758ca1B26d07ec1082B12495107Cf5b3` (v2) do not satisfy the latest steward request and must not be submitted as v3 evidence.
 
 ## Honest boundary
 
-This proves integrity and publisher attribution for one artifact at one commit.
-It does not prove GitHub-login ownership, completeness of the Git tree,
-distribution to users or package security.
+V3 supports npm tarballs up to 300 KB with a TypeScript declaration entrypoint. It proves the assessed declarations were bytes inside integrity-verified npm release tarballs. It does not prove runtime behavior, malware safety, legal maintainer identity, or compatibility outside the exported declaration surface.
 
-## Local gates
+## Verified local gates
 
-- 19 Python semantic/static/Direct Mode tests pass.
-- GenVM lint, schema validation and typecheck pass.
+- 14 Python semantic, static and Direct Mode tests pass.
+- GenVM lint, schema validation and typecheck pass (6 methods, no constructor).
 - 5 frontend tests, TypeScript, lint and production build pass.
-- Regression coverage includes mutable branch, deceptive hostname, digest
-  mismatch, package substitution, authority mismatch, source failure, replay and
-  prompt injection.
+- Coverage includes happy path, canonical origin, package/version substitution, tarball locator mismatch, integrity mismatch, missing source, unavailable registry, authority, replay and prompt injection.
 
-```powershell
-python -m pytest -q
-genvm-lint check contracts\SemVerSentinel.py
-genvm-lint typecheck contracts\SemVerSentinel.py
-cd frontend
-npm test
-npm run typecheck
-npm run lint
-npm run build
-```
-
-See `SPEC.md`, `PLAN.md`, `fixtures/artifacts/` and
-`verification/LIVE_MATRIX.md`. Historical v1 evidence remains clearly labelled
-in `verification/` until it is archived in the remediation commit.
+See `SPEC.md` and `verification/AUDIT.md`. Deployment and live evidence will be added only after a fresh v3 deployment is finalized.

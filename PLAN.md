@@ -1,14 +1,14 @@
-# SemVer Sentinel v2 remediation plan
+# SemVer Sentinel v3 remediation plan
 
-1. Translate steward feedback into a provenance proof obligation.
-2. Replace free-form snapshots with a commit-pinned GitHub artifact.
-3. Derive package/commit identity from an exact canonical locator.
-4. Bind artifact publisher to the transaction sender.
-5. Make every validator fetch and SHA-256 the exact adjudicated bytes.
-6. Fail closed for digest, schema, authority and object mismatch.
-7. Preserve retry without mutation for source/model unavailability.
-8. Run semantic, Direct Mode, provenance bypass and frontend gates.
-9. Freeze source hash and live matrix before deployment.
-10. Stop and ask the user to deploy the exact v2 source.
-11. After deployment, run the frozen matrix, wire the frontend and publish new
-    evidence. Mark the original contract as superseded; never erase its history.
+1. Convert the second steward rejection into a shipped-artifact proof obligation.
+2. Remove publisher-authored API descriptions, locators and digests from input.
+3. Restrict v3 to exact npm releases with bounded TypeScript declarations.
+4. Derive registry metadata and tarball URLs inside the contract.
+5. Verify package/version identity and npm-published SHA-512 over tarball bytes.
+6. Extract the declaration entrypoint from the verified release tarball.
+7. Make validators repeat acquisition, verification, extraction and classification.
+8. Persist and consensus-check tarball integrity plus extracted-source hashes.
+9. Pass local happy, failure, adversarial, GenVM and frontend gates.
+10. Freeze and push the pre-deploy source; stop for user deployment.
+11. After deployment, verify source parity and run real npm live cases before
+    wiring or publishing the frontend and before claiming submission readiness.
