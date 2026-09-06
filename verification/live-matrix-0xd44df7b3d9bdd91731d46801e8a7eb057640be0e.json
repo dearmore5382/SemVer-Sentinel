@@ -1,0 +1,201 @@
+{
+  "contract": "0xd44DF7b3D9bdD91731D46801E8a7eb057640be0E",
+  "source_sha256": "a52d21bf67dcfb08daefc0f5a17b39fbc5793b08091f72db461db4202aa01301",
+  "started_at": "2026-09-06T01:52:15.918276+00:00",
+  "wallets": [
+    "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+    "0xA63DE24e30C88FB1019E8956654730316e36eDBE"
+  ],
+  "steps": [
+    {
+      "id": "F1-invalid-input",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "https://evil",
+        "1.0.0",
+        "1.1.0",
+        "Existing exported TypeScript declarations and required parameters must remain compatible."
+      ],
+      "expected": "INVALID_NPM_PACKAGE",
+      "count": 0,
+      "status": "READBACK_VERIFIED",
+      "hash": "0x40841c65c5976b989c468d363713ff3e5e3d39922ba237796c508def418d8d8a",
+      "actual": "INVALID_NPM_PACKAGE",
+      "readback": {
+        "release_count": 0
+      }
+    },
+    {
+      "id": "H1-create",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "p-limit",
+        "3.0.0",
+        "3.1.0",
+        "Existing exported TypeScript declarations and required parameters must remain compatible."
+      ],
+      "expected": "0",
+      "count": 1,
+      "status": "READBACK_VERIFIED",
+      "hash": "0xe98a915924f2dfeff0c6b71c08b880ab2f14e1a6645c1c048bf90369c534ca87",
+      "actual": "0",
+      "readback": {
+        "release_count": 1
+      }
+    },
+    {
+      "id": "A1-outsider-seal",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "seal_release",
+      "args": [
+        0
+      ],
+      "expected": "PUBLISHER_ONLY",
+      "count": 1,
+      "status": "READBACK_VERIFIED",
+      "hash": "0xeb345cdb783445afd9591deb5386c8c112885ba5e604b9341289a311bdd19d15",
+      "actual": "PUBLISHER_ONLY",
+      "readback": {
+        "release_count": 1
+      }
+    },
+    {
+      "id": "H1-seal",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        0
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 1,
+      "status": "READBACK_VERIFIED",
+      "hash": "0xc7d0313af7e22f2c4d523e246dd8af277ede01d8f942010740b990c5635b301b",
+      "actual": "RELEASE_SEALED",
+      "readback": {
+        "release_count": 1
+      }
+    },
+    {
+      "id": "H1-assess",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        0
+      ],
+      "expected_one_of": [
+        "COMPLIANT",
+        "REVIEW_REQUIRED",
+        "VERSION_VIOLATION"
+      ],
+      "count": 1,
+      "verified_artifact": true,
+      "status": "READBACK_VERIFIED",
+      "hash": "0xca5782f03d79a7de75e838d7b95cba7e273b098f613fe15b0312beeace5e2491",
+      "retryable_attempts": [
+        {
+          "hash": "0xb8469a726e88421fe759c109d6c2123c52370cb877eb7540ad062e20dbbe1f59",
+          "return": "ASSESSMENT_RETRYABLE",
+          "state": "SEALED"
+        }
+      ],
+      "actual": "VERSION_VIOLATION",
+      "readback": {
+        "status": "REVIEWED",
+        "package": "p-limit",
+        "versions": [
+          "3.0.0",
+          "3.1.0"
+        ],
+        "category": "BREAKING",
+        "compliance": "VERSION_VIOLATION",
+        "reason": "BREAKING_CHANGE_DETECTED",
+        "proof": {
+          "analysis_status": "AVAILABLE",
+          "behavior_compatibility": "UNCERTAIN",
+          "documentation_only": "NO",
+          "new_integrity": "sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==",
+          "new_source_sha256": "9f91eee81fda27d38d60963fe1de2f050a5cfb241af56b7e7ee6d9aa8522a058",
+          "old_integrity": "sha512-2FnzNu8nBx8Se231yrvScYw34Is5J5MtvKOQt7Lii+DGpM89xnCT7kIH/HJwniNkQpjB7zy/O3LckEfMVqYvFg==",
+          "old_source_sha256": "d634a341021ce7abfa326fe3960053217b52d5b215cf8013bb8a515621e20c08",
+          "provenance_status": "VERIFIED",
+          "request_compatibility": "INCOMPATIBLE",
+          "response_compatibility": "COMPATIBLE",
+          "surface_change": "REPLACEMENT"
+        }
+      }
+    },
+    {
+      "id": "A2-replay",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "assess_release",
+      "args": [
+        0
+      ],
+      "expected": "RELEASE_NOT_ASSESSABLE",
+      "count": 1,
+      "status": "READBACK_VERIFIED",
+      "hash": "0x27ab9b2a23e3f80d5ed39026b68e6279a84937012d020fa88ec09b4d68475275",
+      "actual": "RELEASE_NOT_ASSESSABLE",
+      "readback": {
+        "release_count": 1
+      }
+    },
+    {
+      "id": "F2-create-missing",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "create_release",
+      "args": [
+        "semver-sentinel-package-that-does-not-exist",
+        "1.0.0",
+        "1.1.0",
+        "Existing exported TypeScript declarations and required parameters must remain compatible."
+      ],
+      "expected": "1",
+      "count": 2,
+      "status": "READBACK_VERIFIED",
+      "hash": "0x0c9b936cf35d06c4655dea2429d6f6bfb7b1429627a5f9d10789933c0a93ce2b",
+      "actual": "1",
+      "readback": {
+        "release_count": 2
+      }
+    },
+    {
+      "id": "F2-seal-missing",
+      "actor": "0x736A168247e3f0C52F7907c9a8fDac572DF9c8bB",
+      "method": "seal_release",
+      "args": [
+        1
+      ],
+      "expected": "RELEASE_SEALED",
+      "count": 2,
+      "status": "READBACK_VERIFIED",
+      "hash": "0xf8af983f4b9e26668eab6b45db25334d861fdea9ba06e0a3ff9da6a1a5569fb9",
+      "actual": "RELEASE_SEALED",
+      "readback": {
+        "release_count": 2
+      }
+    },
+    {
+      "id": "F2-assess-missing",
+      "actor": "0xA63DE24e30C88FB1019E8956654730316e36eDBE",
+      "method": "assess_release",
+      "args": [
+        1
+      ],
+      "expected": "ARTIFACT_REJECTED",
+      "count": 2,
+      "status": "READBACK_VERIFIED",
+      "hash": "0xb853471a3b07285e5c82c1271e37de151c14ebfbcc699aab042e70af172d2d60",
+      "actual": "ARTIFACT_REJECTED",
+      "readback": {
+        "status": "REJECTED",
+        "compliance": "ARTIFACT_REJECTED",
+        "reason": "REGISTRY_INVALID"
+      }
+    }
+  ],
+  "complete": true,
+  "completed_at": "2026-09-06T02:02:41.146274+00:00"
+}

@@ -10,7 +10,9 @@ For each version the contract constructs the npm registry URL, verifies exact pa
 
 ## Current status
 
-V3 is locally frozen and ready to deploy; it is deliberately not marked live until source parity and the post-deploy matrix pass. `frontend/src/deployment.json` contains a zero address, so this commit cannot accidentally write to v2.
+V3 is deployed at `0xd44DF7b3D9bdD91731D46801E8a7eb057640be0E`.
+Exact deployed/local source parity and the checkpointed nine-step Studionet
+matrix passed. The frontend is bound only to this verified deployment.
 
 Historical deployments `0xfdA283EF4D39763ECbFf3BC739cBfB12fF5E3594` (v1) and `0x118f353B758ca1B26d07ec1082B12495107Cf5b3` (v2) do not satisfy the latest steward request and must not be submitted as v3 evidence.
 
@@ -25,4 +27,5 @@ V3 supports npm tarballs up to 300 KB with a TypeScript declaration entrypoint. 
 - 5 frontend tests, TypeScript, lint and production build pass.
 - Coverage includes happy path, canonical origin, package/version substitution, tarball locator mismatch, integrity mismatch, missing source, unavailable registry, authority, replay and prompt injection.
 
-See `SPEC.md` and `verification/AUDIT.md`. Deployment and live evidence will be added only after a fresh v3 deployment is finalized.
+See `SPEC.md`, `verification/AUDIT.md`, `verification/DEPLOYMENT_READINESS.md`
+and `verification/LIVE_RESULTS.md` for the evidence and its limits.

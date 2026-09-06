@@ -1,0 +1,93 @@
+{
+  "network": "Studionet",
+  "chain_id": 61999,
+  "contract": "0xd44DF7b3D9bdD91731D46801E8a7eb057640be0E",
+  "source_sha256": "a52d21bf67dcfb08daefc0f5a17b39fbc5793b08091f72db461db4202aa01301",
+  "exact_source_parity": true,
+  "initial_release_count": 0,
+  "schema": {
+    "ctor": {
+      "params": [],
+      "kwparams": {}
+    },
+    "methods": {
+      "assess_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      },
+      "cancel_draft": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      },
+      "create_release": {
+        "params": [
+          [
+            "package",
+            "string"
+          ],
+          [
+            "old_version",
+            "string"
+          ],
+          [
+            "new_version",
+            "string"
+          ],
+          [
+            "policy",
+            "string"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "any",
+        "payable": false
+      },
+      "get_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": true,
+        "ret": "string"
+      },
+      "get_release_count": {
+        "params": [],
+        "kwparams": {},
+        "readonly": true,
+        "ret": "int"
+      },
+      "seal_release": {
+        "params": [
+          [
+            "release_id",
+            "int"
+          ]
+        ],
+        "kwparams": {},
+        "readonly": false,
+        "ret": "string",
+        "payable": false
+      }
+    }
+  }
+}

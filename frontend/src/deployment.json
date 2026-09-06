@@ -1,5 +1,5 @@
 {
-  "contractAddress": "0x0000000000000000000000000000000000000000",
-  "sourceSha256": "",
-  "liveAuditVerified": false
+  "contractAddress": "0xd44DF7b3D9bdD91731D46801E8a7eb057640be0E",
+  "sourceSha256": "a52d21bf67dcfb08daefc0f5a17b39fbc5793b08091f72db461db4202aa01301",
+  "liveAuditVerified": true
 }
